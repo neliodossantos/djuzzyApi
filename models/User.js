@@ -15,24 +15,10 @@ const UserSchema = new Schema({
     senha : {
         type : String,
     },
-    // nif : {
-    //     type : Number,
-    //     required : true,
-    //     // validate: function(value) {
-    //     //     return value.length == 11;
-    //     // } 
-    // },
-    // telefone : {
-    //     type : Number,
-    //     // validate: function(value){
-    //     //     return value.length == 9;
-    //     // }
-    // },
-    role: { type: String, required: true, enum: ['restaurant', 'admin'], default: 'restaurant' }
-
+    role: { type: String, required: true, enum: ['client', 'admin'], default: 'admin' }
 }, {timestamps: true});
 
 const User = mongoose.model('User',UserSchema);
 module.exports = {
-    User, UserSchema
+    User
 };
