@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { Booknow } = require('./models/BookNow');
 const { Contact } = require('./models/Contact');
+const { User } = require('./models/User');
+
 const cors = require('cors');
 
 
@@ -32,7 +34,6 @@ db.once('open', () => {
   console.log('Conectado ao MongoDB');
 });
 
-const User = mongoose.model('User', userSchema);
 
 // Endpoint de registro
 app.post('/register', async (req, res) => {
