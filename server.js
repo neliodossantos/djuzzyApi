@@ -67,10 +67,10 @@ app.get('/contact', async (req, res) => {
 
 // Rota básica
 app.post('/contact', async (req, res) => {
-    const newContact = new Booknow(req.body);
+    const newContact = new Contact(req.body);
     try {
-        const savedBooking = await newContact.save();
-        res.status(201).json(savedBooking);
+        const savedContact = await newContact.save();
+        res.status(201).json(savedContact);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
