@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { Booknow } = require('./models/BookNow');
 const { Contact } = require('./models/Contact');
+const cors = require('cors');
 
 
 const app = express();
@@ -12,6 +13,18 @@ mongoose.connect('mongodb+srv://neliodossantos15:gBEf9L8Mu8gRprvn@cluster0.c0v1j
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+
+
+// Configurar opções do CORS para permitir qualquer origem
+const corsOptions = {
+  origin: '*', // Permitir qualquer origem
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Se você está usando cookies ou autenticação
+};
+
+// Aplicar o middleware CORS com as opções configuradas
+app.use(cors(corsOptions));
+
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erro na conexão ao MongoDB:'));
