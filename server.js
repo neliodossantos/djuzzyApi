@@ -37,10 +37,10 @@ db.once('open', () => {
 
 // Endpoint de registro
 app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password , email } = req.body;
 
     // Verifique se o usuário já existe
-    const userExists = await User.findOne({ username });
+    const userExists = await User.findOne({ email });
     if (userExists) {
         return res.status(400).json({ message: 'Usuário já existe' });
     }
@@ -48,7 +48,9 @@ app.post('/register', async (req, res) => {
     // Crie um novo usuário
     const newUser = new User({
         username,
+        email,
         password,
+        
     });
 
     await newUser.save();
