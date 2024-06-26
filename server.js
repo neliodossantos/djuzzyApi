@@ -32,6 +32,45 @@ db.once('open', () => {
   console.log('Conectado ao MongoDB');
 });
 
+const User = mongoose.model('User', userSchema);
+
+// Endpoint de registro
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+
+    // Verifique se o usuário já existe
+    const userExists = await User.findOne({ username });
+    if (userExists) {
+        return res.status(400).json({ message: 'Usuário já existe' });
+    }
+
+    // Crie um novo usuário
+    const newUser = new User({
+        username,
+        password,
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: 'Usuário registrado com sucesso' });
+});
+
+// Endpoint de login
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    // Verifique se o usuário existe
+    const user = await User.findOne({ username });
+    if (!user) {
+        return res.status(400).json({ message: 'Usuário não encontrado' });
+    }
+
+    // Verifique a senha
+    if (user.password !== password) {
+        return res.status(400).json({ message: 'Senha incorreta' });
+    }
+
+    res.status(200).json({ message: 'Login bem-sucedido' });
+});
 
 
 // Rota básica
